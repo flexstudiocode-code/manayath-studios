@@ -1,0 +1,626 @@
+export interface GalleryImage {
+  id: string;
+  caption: string;
+  alt: string;
+  tags: string[];
+  aspect: string;
+}
+
+export interface Gallery {
+  slug: string;
+  kind: "culture" | "event";
+  title: string;
+  subtitle: string;
+  description: string;
+  cover: string;
+  count: number;
+  locations?: string[];
+  highlights: string[];
+  tags: string[];
+  images: GalleryImage[];
+}
+
+const ASPECTS = ["4/5", "3/4", "1/1", "4/3", "3/4", "16/11"];
+
+function makeImages(
+  ids: string[],
+  captions: string[],
+  tagSets: string[][],
+  n: number
+): GalleryImage[] {
+  const out: GalleryImage[] = [];
+  for (let i = 0; i < n; i++) {
+    out.push({
+      id: ids[i % ids.length],
+      caption: captions[i % captions.length],
+      alt: `${captions[i % captions.length]} — Kerala wedding photography by Manayath Studios`,
+      tags: tagSets[i % tagSets.length],
+      aspect: ASPECTS[i % ASPECTS.length],
+    });
+  }
+  return out;
+}
+
+/* ------------------------------ image pools ------------------------------ */
+
+const HINDU_IDS = [
+  "1519741497674-611481863552",
+  "1583939003579-730e3918a45a",
+  "1560089000-7433a4ebbd64",
+  "1606800052052-a08af7148866",
+  "1591604466107-ec97de577aff",
+  "1594736797933-d0501ba2fe65",
+  "1625246333195-78d9c38ad449",
+  "1515934751635-c81c6bc9a2d8",
+  "1522093007474-d86e9bf7ba6f",
+  "1510076857177-7470076d4098",
+  "1523438885200-e635ba2c371e",
+  "1526045478516-99145907023c",
+];
+
+const CHRISTIAN_IDS = [
+  "1532712938310-34cb3982ef74",
+  "1519225421980-715cb0215aed",
+  "1522708323590-d24dbb6b0267",
+  "1511285560929-80b456fea0bc",
+  "1465495976277-4387d4b0b4c6",
+  "1544005313-94ddf0286df2",
+  "1523438885200-e635ba2c371e",
+  "1510076857177-7470076d4098",
+  "1520854221256-17451cc331bf",
+  "1519690889869-e705e59f72e1",
+  "1519741497674-611481863552",
+  "1552332386-f8dd00dc2f85",
+];
+
+const MUSLIM_IDS = [
+  "1591604466107-ec97de577aff",
+  "1583939003579-730e3918a45a",
+  "1594736797933-d0501ba2fe65",
+  "1515934751635-c81c6bc9a2d8",
+  "1522093007474-d86e9bf7ba6f",
+  "1606800052052-a08af7148866",
+  "1587271407850-8d438ca9fdf2",
+  "1523438885200-e635ba2c371e",
+  "1526045478516-99145907023c",
+  "1465495976277-4387d4b0b4c6",
+  "1519225421980-715cb0215aed",
+  "1594552072238-b8a33785b261",
+];
+
+const EVENT_IDS = [
+  "1520854221256-17451cc331bf",
+  "1532712938310-34cb3982ef74",
+  "1519741497674-611481863552",
+  "1522673607200-164d1b6ce486",
+  "1469371670807-013ccf25f16a",
+  "1511285560929-80b456fea0bc",
+  "1522093007474-d86e9bf7ba6f",
+  "1515934751635-c81c6bc9a2d8",
+  "1510076857177-7470076d4098",
+  "1519225421980-715cb0215aed",
+  "1523438885200-e635ba2c371e",
+  "1465495976277-4387d4b0b4c6",
+  "1587271407850-8d438ca9fdf2",
+  "1529543544282-ea669407fca3",
+  "1519690889869-e705e59f72e1",
+  "1544005313-94ddf0286df2",
+  "1537633552985-df8429e8048b",
+  "1474552226712-ac0f0961a954",
+  "1558636508-e0db3814bd1d",
+  "1520975916090-3105956dac38",
+  "1583608205776-bfd35f0d9f83",
+  "1606216794074-735e91aa2c92",
+  "1507591064344-4c6ce005b128",
+];
+
+/* -------------------------------- cultures -------------------------------- */
+
+const hinduCaps = [
+  "Thalappoli procession",
+  "Mangalsutra tying",
+  "Sadhya feast",
+  "Temple rituals",
+  "Family blessings",
+  "Candid laughter",
+  "Mandapam decor",
+  "Couple portraits",
+  "Golden hour ritual",
+  "Nalangu ceremony",
+  "Bridal details",
+  "Reception glow",
+];
+const hinduTags = [
+  ["Rituals", "Tradition"],
+  ["Rituals", "Sacred"],
+  ["Details", "Tradition"],
+  ["Rituals", "Temple"],
+  ["Family", "Candid"],
+  ["Candid", "Emotions"],
+  ["Details", "Decor"],
+  ["Couple", "Portraits"],
+  ["Golden Hour", "Cinematic"],
+  ["Rituals", "Family"],
+  ["Details", "Bridal"],
+  ["Reception", "Candid"],
+];
+
+const christianCaps = [
+  "Minnu Kettu ceremony",
+  "Church wedding",
+  "Choir moment",
+  "White gown portrait",
+  "Reception entrance",
+  "Family blessings",
+  "Couple portraits",
+  "Flower aisle",
+  "Cake & toast",
+  "Departure sparklers",
+  "Golden hour couple",
+  "Bridal preparation",
+];
+const christianTags = [
+  ["Rituals", "Sacred"],
+  ["Ceremony", "Church"],
+  ["Choir", "Emotions"],
+  ["Portraits", "Bridal"],
+  ["Reception", "Grand Entrance"],
+  ["Family", "Blessings"],
+  ["Couple", "Portraits"],
+  ["Details", "Decor"],
+  ["Reception", "Celebration"],
+  ["Golden Hour", "Candid"],
+  ["Couple", "Golden Hour"],
+  ["Details", "Bridal"],
+];
+
+const muslimCaps = [
+  "Nikah ceremony",
+  "Mehendi details",
+  "Evening reception",
+  "Malabar traditions",
+  "Luxury stage decor",
+  "Family celebrations",
+  "Candid storytelling",
+  "Bridal portraits",
+  "Grand entrance",
+  "Post-ceremony joy",
+  "Traditional attire",
+  "Reception glow",
+];
+const muslimTags = [
+  ["Rituals", "Nikah"],
+  ["Details", "Mehendi"],
+  ["Reception", "Evening"],
+  ["Tradition", "Malabar"],
+  ["Decor", "Luxury"],
+  ["Family", "Celebration"],
+  ["Candid", "Storytelling"],
+  ["Portraits", "Bridal"],
+  ["Reception", "Grand Entrance"],
+  ["Candid", "Emotions"],
+  ["Details", "Traditional"],
+  ["Reception", "Candid"],
+];
+
+const eventCaps: Record<string, string[]> = {
+  "save-the-date": [
+    "Backwaters at dawn",
+    "Tea plantation walk",
+    "Beach silhouettes",
+    "Munnar mist morning",
+    "Wayanad hills",
+    "Vagamon meadows",
+    "Waterfall frames",
+    "Urban concept shoot",
+    "Golden hour couples",
+    "Cinematic stills",
+    "Adventure couple",
+    "Quiet romance",
+  ],
+  "pre-wedding": [
+    "Romantic portraits",
+    "Adventure session",
+    "Couple storytelling",
+    "Golden hour walk",
+    "Mist morning frames",
+    "Emotional close-up",
+    "Playful candid",
+    "Cinematic still",
+    "Sunset silhouettes",
+    "Tea estate romance",
+    "Laughing together",
+    "The long walk",
+  ],
+  haldi: [
+    "Haldi ceremony",
+    "Vibrant colours",
+    "Turmeric moment",
+    "Laughter & chaos",
+    "Marigold details",
+    "Family fun",
+    "Candid joy",
+    "Ceremony decor",
+    "Yellow celebration",
+    "Sisters' moment",
+    "Flower showers",
+    "Colourful chaos",
+  ],
+  mehendi: [
+    "Mehendi details",
+    "Henna close-up",
+    "Bridal hands",
+    "Intricate patterns",
+    "Traditional art",
+    "Friends & family",
+    "Ceremony moments",
+    "Colourful decor",
+    "Bridal attire",
+    "Playful poses",
+    "Golden accents",
+    "Celebration colours",
+  ],
+  sangeet: [
+    "Dance performance",
+    "Festive lighting",
+    "Celebration energy",
+    "Choreographed moves",
+    "Stage moments",
+    "Candid reactions",
+    "Musical night",
+    "Grand finale",
+    "Costume details",
+    "Family dance-off",
+    "Sparkler finale",
+    "Midnight glow",
+  ],
+  "wedding-day": [
+    "Ceremony rituals",
+    "Vows & promises",
+    "Sacred moments",
+    "Family blessings",
+    "Ritual details",
+    "Candid emotions",
+    "Ceremony portraits",
+    "Traditional decor",
+    "The first look",
+    "Tying the knot",
+    "Blessing hands",
+    "Joyful tears",
+  ],
+  reception: [
+    "Luxury stage",
+    "Grand entrance",
+    "Couple portraits",
+    "Guest moments",
+    "Cake cutting",
+    "Toast & cheers",
+    "Dance floor",
+    "Celebration",
+    "Stage decor",
+    "First dance",
+    "Family photos",
+    "Confetti finale",
+  ],
+  "post-wedding": [
+    "Destination shoot",
+    "Beach session",
+    "Hill station frames",
+    "Travel story",
+    "Golden hour",
+    "Adventure couple",
+    "Candid walk",
+    "Cinematic vistas",
+    "Backwater cruise",
+    "Tea estate sunset",
+    "Quiet together",
+    "Endless frames",
+  ],
+};
+
+const eventTags: Record<string, string[][]> = {
+  "save-the-date": [
+    ["Backwaters", "Cinematic"],
+    ["Tea Estate", "Cinematic"],
+    ["Beach", "Couple"],
+    ["Mountain", "Mist"],
+    ["Hills", "Adventure"],
+    ["Meadows", "Cinematic"],
+    ["Waterfall", "Adventure"],
+    ["Urban", "Concept"],
+    ["Couple", "Golden Hour"],
+    ["Cinematic", "Storytelling"],
+    ["Adventure", "Couple"],
+    ["Couple", "Romance"],
+  ],
+  "pre-wedding": [
+    ["Couple", "Portraits"],
+    ["Adventure", "Couple"],
+    ["Couple", "Storytelling"],
+    ["Couple", "Golden Hour"],
+    ["Mist", "Cinematic"],
+    ["Couple", "Emotions"],
+    ["Candid", "Playful"],
+    ["Cinematic", "Still"],
+    ["Couple", "Silhouette"],
+    ["Tea Estate", "Romance"],
+    ["Candid", "Joy"],
+    ["Couple", "Cinematic"],
+  ],
+  haldi: [
+    ["Haldi", "Ceremony"],
+    ["Colours", "Vibrant"],
+    ["Haldi", "Candid"],
+    ["Candid", "Laughter"],
+    ["Details", "Flowers"],
+    ["Family", "Fun"],
+    ["Candid", "Joy"],
+    ["Details", "Decor"],
+    ["Colours", "Celebration"],
+    ["Family", "Candid"],
+    ["Candid", "Details"],
+    ["Colours", "Candid"],
+  ],
+  mehendi: [
+    ["Details", "Mehendi"],
+    ["Details", "Henna"],
+    ["Bridal", "Details"],
+    ["Details", "Patterns"],
+    ["Details", "Traditional"],
+    ["Family", "Candid"],
+    ["Ceremony", "Candid"],
+    ["Details", "Decor"],
+    ["Bridal", "Attire"],
+    ["Candid", "Playful"],
+    ["Details", "Golden"],
+    ["Colours", "Celebration"],
+  ],
+  sangeet: [
+    ["Dance", "Performance"],
+    ["Lighting", "Festive"],
+    ["Celebration", "Energy"],
+    ["Dance", "Choreography"],
+    ["Stage", "Performance"],
+    ["Candid", "Reactions"],
+    ["Music", "Night"],
+    ["Celebration", "Finale"],
+    ["Details", "Costume"],
+    ["Family", "Dance"],
+    ["Sparklers", "Finale"],
+    ["Lighting", "Night"],
+  ],
+  "wedding-day": [
+    ["Rituals", "Ceremony"],
+    ["Vows", "Sacred"],
+    ["Rituals", "Sacred"],
+    ["Family", "Blessings"],
+    ["Details", "Rituals"],
+    ["Candid", "Emotions"],
+    ["Portraits", "Ceremony"],
+    ["Details", "Decor"],
+    ["Couple", "First Look"],
+    ["Rituals", "Sacred"],
+    ["Details", "Blessings"],
+    ["Candid", "Emotions"],
+  ],
+  reception: [
+    ["Decor", "Luxury"],
+    ["Reception", "Entrance"],
+    ["Couple", "Portraits"],
+    ["Candid", "Guests"],
+    ["Reception", "Cake"],
+    ["Reception", "Toast"],
+    ["Dance", "Celebration"],
+    ["Reception", "Celebration"],
+    ["Details", "Stage"],
+    ["Dance", "First Dance"],
+    ["Family", "Portraits"],
+    ["Candid", "Finale"],
+  ],
+  "post-wedding": [
+    ["Destination", "Travel"],
+    ["Beach", "Couple"],
+    ["Hill Station", "Cinematic"],
+    ["Travel", "Storytelling"],
+    ["Couple", "Golden Hour"],
+    ["Adventure", "Couple"],
+    ["Candid", "Walk"],
+    ["Cinematic", "Vistas"],
+    ["Backwaters", "Travel"],
+    ["Tea Estate", "Sunset"],
+    ["Couple", "Romance"],
+    ["Cinematic", "Couple"],
+  ],
+};
+
+/* ------------------------------ gallery data ------------------------------ */
+
+export const galleries: Gallery[] = [
+  {
+    slug: "kerala-hindu-weddings",
+    kind: "culture",
+    title: "Kerala Hindu Weddings",
+    subtitle: "Thalappoli · Mangalsutra · Sadhya",
+    description:
+      "From the first Thalappoli procession to the final mangalsutra knot, we document every sacred ritual of a Kerala Hindu wedding — the Nalangu, temple ceremonies, sadhya feasts and the candid family moments in between.",
+    cover: "1519741497674-611481863552",
+    count: 24,
+    locations: ["Kannur", "Thrissur", "Kochi", "Temples across Kerala"],
+    highlights: [
+      "Thalappoli",
+      "Nair ceremonies",
+      "Mangalsutra tying",
+      "Traditional rituals",
+      "Temple weddings",
+      "Sadhya feast",
+      "Family moments",
+      "Candid emotions",
+    ],
+    tags: ["Rituals", "Tradition", "Details", "Temple", "Family", "Candid", "Couple", "Golden Hour", "Reception", "Bridal", "Sacred", "Decor"],
+    images: makeImages(HINDU_IDS, hinduCaps, hinduTags, 24),
+  },
+  {
+    slug: "kerala-christian-weddings",
+    kind: "culture",
+    title: "Kerala Christian Weddings",
+    subtitle: "Minnu Kettu · Church · White Gowns",
+    description:
+      "Choir voices under high vaulted ceilings, the Minnu Kettu uniting two families, and the walk back down the aisle as husband and wife. We capture the grace, blessings and celebration of Kerala Christian weddings.",
+    cover: "1532712938310-34cb3982ef74",
+    count: 24,
+    locations: ["Kochi", "Kottayam", "Thrissur", "Churches across Kerala"],
+    highlights: [
+      "Minnu Kettu",
+      "Church weddings",
+      "Choir moments",
+      "White gown portraits",
+      "Reception",
+      "Couple portraits",
+      "Family blessings",
+    ],
+    tags: ["Rituals", "Ceremony", "Church", "Choir", "Portraits", "Bridal", "Reception", "Family", "Couple", "Details", "Sacred", "Golden Hour"],
+    images: makeImages(CHRISTIAN_IDS, christianCaps, christianTags, 24),
+  },
+  {
+    slug: "kerala-muslim-weddings",
+    kind: "culture",
+    title: "Kerala Muslim Weddings",
+    subtitle: "Nikah · Mehendi · Malabar Nights",
+    description:
+      "Afternoon mehendi, the solemn Nikah at dusk and a grand Malabar reception under chandeliers. We tell the story of Muslim weddings in Kerala — traditions, luxury staging and honest emotion.",
+    cover: "1591604466107-ec97de577aff",
+    count: 24,
+    locations: ["Kannur", "Kozhikode", "Thalassery", "Malabar region"],
+    highlights: [
+      "Nikah",
+      "Mehendi",
+      "Evening reception",
+      "Malabar traditions",
+      "Thalassery weddings",
+      "Family celebrations",
+      "Luxury stage decorations",
+      "Candid storytelling",
+    ],
+    tags: ["Nikah", "Mehendi", "Reception", "Malabar", "Decor", "Family", "Candid", "Portraits", "Evening", "Details", "Tradition", "Celebration"],
+    images: makeImages(MUSLIM_IDS, muslimCaps, muslimTags, 24),
+  },
+  {
+    slug: "save-the-date",
+    kind: "event",
+    title: "Save The Date",
+    subtitle: "Cinematic couple films across Kerala",
+    description:
+      "Creative cinematic save-the-date shoots through Kerala's most beautiful landscapes — backwaters, Munnar tea estates, Wayanad, Vagamon, beaches, waterfalls and urban concepts.",
+    cover: "1520854221256-17451cc331bf",
+    count: 18,
+    locations: ["Backwaters", "Munnar", "Wayanad", "Vagamon", "Beaches", "Tea plantations", "Waterfalls", "Urban concepts"],
+    highlights: ["Backwaters", "Munnar", "Wayanad", "Vagamon", "Beaches", "Tea plantations", "Waterfalls", "Urban concepts"],
+    tags: ["Backwaters", "Tea Estate", "Beach", "Mountain", "Mist", "Meadows", "Waterfall", "Urban", "Couple", "Cinematic", "Adventure", "Golden Hour", "Romance"],
+    images: makeImages(EVENT_IDS, eventCaps["save-the-date"], eventTags["save-the-date"], 18),
+  },
+  {
+    slug: "pre-wedding",
+    kind: "event",
+    title: "Pre Wedding",
+    subtitle: "Romance, adventure & couple storytelling",
+    description:
+      "Dreamy pre-wedding sessions — romantic portraits, adventure sessions and cinematic couple storytelling shot across Kerala's most photogenic corners.",
+    cover: "1532712938310-34cb3982ef74",
+    count: 18,
+    locations: ["Munnar", "Varkala", "Wayanad", "Fort Kochi"],
+    highlights: ["Romantic portraits", "Adventure sessions", "Couple storytelling"],
+    tags: ["Couple", "Portraits", "Adventure", "Storytelling", "Golden Hour", "Mist", "Emotions", "Candid", "Cinematic", "Silhouette", "Romance", "Joy"],
+    images: makeImages(EVENT_IDS, eventCaps["pre-wedding"], eventTags["pre-wedding"], 18),
+  },
+  {
+    slug: "haldi",
+    kind: "event",
+    title: "Haldi",
+    subtitle: "Bright, colourful, joyful moments",
+    description:
+      "Turmeric, marigolds and pure joy — the haldi ceremony in all its vibrant, messy, unforgettable colour.",
+    cover: "1594736797933-d0501ba2fe65",
+    count: 16,
+    locations: ["Kannur", "Thrissur", "Kochi"],
+    highlights: ["Bright colorful moments", "Family fun", "Vibrant decor"],
+    tags: ["Haldi", "Colours", "Candid", "Laughter", "Details", "Family", "Joy", "Decor", "Celebration", "Flowers"],
+    images: makeImages(EVENT_IDS, eventCaps.haldi, eventTags.haldi, 16),
+  },
+  {
+    slug: "mehendi",
+    kind: "event",
+    title: "Mehendi",
+    subtitle: "Traditional close-up details",
+    description:
+      "The intricate art of mehendi — close-up details of bridal hands, patterns and the quiet moments of preparation.",
+    cover: "1587271407850-8d438ca9fdf2",
+    count: 16,
+    locations: ["Kannur", "Kozhikode", "Kochi"],
+    highlights: ["Traditional close-up details", "Bridal hands", "Henna patterns"],
+    tags: ["Details", "Mehendi", "Henna", "Bridal", "Traditional", "Family", "Candid", "Decor", "Attire", "Golden"],
+    images: makeImages(EVENT_IDS, eventCaps.mehendi, eventTags.mehendi, 16),
+  },
+  {
+    slug: "sangeet",
+    kind: "event",
+    title: "Sangeet",
+    subtitle: "Dance, lighting & celebration",
+    description:
+      "Choreographed performances, festive lighting and a night of pure celebration — the sangeet in all its electric energy.",
+    cover: "1522093007474-d86e9bf7ba6f",
+    count: 16,
+    locations: ["Kochi", "Kannur", "Thrissur"],
+    highlights: ["Dance", "Lighting", "Celebration", "Grand finale"],
+    tags: ["Dance", "Lighting", "Celebration", "Choreography", "Stage", "Candid", "Music", "Finale", "Details", "Family", "Sparklers", "Night"],
+    images: makeImages(EVENT_IDS, eventCaps.sangeet, eventTags.sangeet, 16),
+  },
+  {
+    slug: "wedding-day",
+    kind: "event",
+    title: "Wedding Day",
+    subtitle: "The entire ceremony, start to finish",
+    description:
+      "The full wedding day — every ritual, vow, blessing and tear. Our most comprehensive coverage, from first look to final farewell.",
+    cover: "1519225421980-715cb0215aed",
+    count: 24,
+    locations: ["All districts of Kerala"],
+    highlights: ["Entire ceremony", "Rituals & vows", "Sacred moments"],
+    tags: ["Rituals", "Vows", "Sacred", "Family", "Details", "Candid", "Portraits", "Decor", "First Look", "Blessings", "Emotions", "Ceremony"],
+    images: makeImages(EVENT_IDS, eventCaps["wedding-day"], eventTags["wedding-day"], 24),
+  },
+  {
+    slug: "reception",
+    kind: "event",
+    title: "Reception",
+    subtitle: "Luxury stages, portraits & guests",
+    description:
+      "Grand entrances, luxury stage design, first dances and every toast in between — the reception, captured in full glamour.",
+    cover: "1515934751635-c81c6bc9a2d8",
+    count: 18,
+    locations: ["Kochi", "Kannur", "Kozhikode"],
+    highlights: ["Luxury stage", "Portraits", "Guests", "Celebration"],
+    tags: ["Decor", "Reception", "Couple", "Candid", "Cake", "Toast", "Dance", "Celebration", "Details", "Family", "Entrance", "Finale"],
+    images: makeImages(EVENT_IDS, eventCaps.reception, eventTags.reception, 18),
+  },
+  {
+    slug: "post-wedding",
+    kind: "event",
+    title: "Post Wedding",
+    subtitle: "Destination & travel shoots",
+    description:
+      "After the madness, the quiet — destination shoots, beach sessions and hill station frames that let you be just the two of you again.",
+    cover: "1519741497674-611481863552",
+    count: 18,
+    locations: ["Munnar", "Wayanad", "Varkala", "Goa", "Coorg", "Hill stations"],
+    highlights: ["Destination shoots", "Travel shoots", "Beach shoots", "Hill station shoots"],
+    tags: ["Destination", "Beach", "Hill Station", "Travel", "Golden Hour", "Adventure", "Candid", "Cinematic", "Backwaters", "Sunset", "Romance", "Couple"],
+    images: makeImages(EVENT_IDS, eventCaps["post-wedding"], eventTags["post-wedding"], 18),
+  },
+];
+
+export const cultureGalleries = galleries.filter((g) => g.kind === "culture");
+export const eventGalleries = galleries.filter((g) => g.kind === "event");
+
+export function getGallery(slug: string) {
+  return galleries.find((g) => g.slug === slug);
+}
