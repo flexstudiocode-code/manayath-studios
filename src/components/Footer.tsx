@@ -12,7 +12,6 @@ const serviceLinks = [
 ];
 
 const studioLinks = [
-  { label: "About Us", href: "/about" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Kerala Hindu Weddings", href: "/portfolio/kerala-hindu-weddings" },
   { label: "Kerala Christian Weddings", href: "/portfolio/kerala-christian-weddings" },

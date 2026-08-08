@@ -3,7 +3,7 @@ import { site } from "@/data/site";
 import { galleries } from "@/data/portfolio";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ["", "/about", "/portfolio", "/films", "/services", "/contact"].map(
+  const staticRoutes = ["", "/portfolio", "/films", "/services", "/contact"].map(
     (p) => ({
       url: `${site.url}${p}`,
       lastModified: new Date(),
