@@ -1,31 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  BookOpen,
-  Briefcase,
-  CalendarHeart,
-  Camera,
-  Check,
-  Clapperboard,
-  HeartHandshake,
-  MapPin,
-  Palmtree,
-  Plane,
-  Radio,
-  Users,
-} from "lucide-react";
+import { Check } from "lucide-react";
 import PageHero from "@/components/PageHero";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import Reveal from "@/components/motion/Reveal";
 import KPhoto from "@/components/ui/KPhoto";
-import BeforeAfter from "@/components/BeforeAfter";
-import FAQ from "@/components/FAQ";
 import BookingCTA from "@/components/BookingCTA";
 import JsonLd, { OrganizationJsonLd } from "@/components/JsonLd";
-import { breadcrumbSchema, faqSchema, webPageSchema } from "@/lib/seo";
+import { breadcrumbSchema, webPageSchema } from "@/lib/seo";
 import { u } from "@/lib/utils";
-import { packages, aLaCarte, expertise } from "@/data/services";
-import { faqs } from "@/data/faqs";
+import { packages, expertise } from "@/data/services";
 
 export const metadata: Metadata = {
   title: "Services & Packages — Wedding Photography & Films Kerala",
@@ -35,29 +19,14 @@ export const metadata: Metadata = {
   openGraph: { title: "Wedding Packages & Services — Manayath Studios", description: "Photography, films, drone, destination weddings and luxury albums across Kerala." },
 };
 
-const iconMap: Record<string, typeof Camera> = {
-  Camera,
-  Clapperboard,
-  Plane,
-  CalendarHeart,
-  MapPin,
-  BookOpen,
-  Radio,
-  HeartHandshake,
-  Palmtree,
-  Users,
-  Briefcase,
-};
-
 export default function ServicesPage() {
   return (
     <>
       <OrganizationJsonLd />
       <JsonLd
         data={[
-          webPageSchema("Services & Packages — Kerala Wedding Photography and Films", "Wedding packages, a-la-carte services and technical expertise from Manayath Studios, Kerala.", "/services"),
+          webPageSchema("Services & Packages — Kerala Wedding Photography and Films", "Wedding packages and technical expertise from Manayath Studios, Kerala.", "/services"),
           breadcrumbSchema([{ name: "Services", path: "/services" }]),
-          faqSchema(faqs),
         ]}
       />
 
@@ -126,31 +95,6 @@ export default function ServicesPage() {
         </div>
       </Section>
 
-      {/* A la carte */}
-      <Section ariaLabel="A la carte services" className="bg-charcoal/[0.02]">
-        <SectionHeading
-          eyebrow="À La Carte"
-          title="Mix and match your coverage"
-          sub="Already have a photographer? Add a single service — or build your own combination."
-        />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {aLaCarte.map((s, i) => {
-            const Icon = iconMap[s.icon] ?? Camera;
-            return (
-              <Reveal key={s.title} delay={(i % 4) * 0.06}>
-                <div className="card-lift group h-full rounded-2xl border border-border/70 bg-card/50 p-6">
-                  <span className="grid h-11 w-11 place-items-center rounded-xl bg-gold/10 text-gold transition-colors duration-300 group-hover:bg-gold group-hover:text-[#241c10]">
-                    <Icon size={19} />
-                  </span>
-                  <h3 className="mt-4 font-serif text-lg">{s.title}</h3>
-                  <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">{s.desc}</p>
-                </div>
-              </Reveal>
-            );
-          })}
-        </div>
-      </Section>
-
       {/* Technical expertise */}
       <Section ariaLabel="Technical expertise">
         <SectionHeading
@@ -184,48 +128,6 @@ export default function ServicesPage() {
               </div>
             </Reveal>
           ))}
-        </div>
-      </Section>
-
-      {/* Before / After */}
-      <Section ariaLabel="The editing difference" className="bg-charcoal/[0.02]">
-        <div className="mx-auto grid max-w-5xl items-center gap-10 lg:grid-cols-2">
-          <Reveal>
-            <span className="eyebrow">The Editing Difference</span>
-            <h2 className="mt-4 font-serif text-3xl leading-tight sm:text-4xl">
-              What happens after we
-              <span className="italic text-gold"> leave your wedding</span>
-            </h2>
-            <p className="mt-5 text-[15px] leading-relaxed text-muted-foreground">
-              Every frame passes through our colour suite — skin tones tuned, highlights tamed,
-              shadows sculpted, yet never fake. Drag the slider to see the transformation our
-              couples get on every single photo, free of extra charge.
-            </p>
-            <ul className="mt-6 space-y-2.5">
-              {[
-                "Natural skin tones — never orange, never grey",
-                "Luminosity and colour graded to Kerala's light",
-                "Noise-free low-light rendering",
-                "Hand-edited, never batch-filtered",
-              ].map((t) => (
-                <li key={t} className="flex items-start gap-2.5 text-sm text-foreground/85">
-                  <Check size={15} className="mt-0.5 shrink-0 text-gold" />
-                  {t}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <BeforeAfter beforeId="1511285560929-80b456fea0bc" afterId="1519741497674-611481863552" />
-          </Reveal>
-        </div>
-      </Section>
-
-      {/* FAQ */}
-      <Section ariaLabel="Frequently asked questions">
-        <SectionHeading eyebrow="FAQ" title="Questions couples ask us most" />
-        <div className="mx-auto max-w-3xl">
-          <FAQ items={faqs} />
         </div>
       </Section>
 

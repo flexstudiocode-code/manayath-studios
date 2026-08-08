@@ -30,3 +30,5 @@ yarn-error.log*
 *.db-shm
 *.db-wal
 .freebuff-dev.log
+
+.vercel

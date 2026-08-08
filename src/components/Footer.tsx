@@ -9,7 +9,6 @@ const serviceLinks = [
   { label: "Save The Date", href: "/portfolio/save-the-date" },
   { label: "Destination Weddings", href: "/services" },
   { label: "Luxury Albums", href: "/services" },
-  { label: "Client Portal", href: "/portal" },
 ];
 
 const studioLinks = [
@@ -18,7 +17,6 @@ const studioLinks = [
   { label: "Kerala Hindu Weddings", href: "/portfolio/kerala-hindu-weddings" },
   { label: "Kerala Christian Weddings", href: "/portfolio/kerala-christian-weddings" },
   { label: "Kerala Muslim Weddings", href: "/portfolio/kerala-muslim-weddings" },
-  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
 

@@ -38,7 +38,6 @@ export const packages: WeddingPackage[] = [
       "Same-day edit add-on available",
       "40-page luxury lay-flat album",
       "Drone coverage add-on available",
-      "Client portal with delivery tracking",
     ],
     image: "1511285560929-80b456fea0bc",
   },
@@ -74,26 +73,6 @@ export const packages: WeddingPackage[] = [
     ],
     image: "1520854221256-17451cc331bf",
   },
-];
-
-export interface ALaCarteService {
-  title: string;
-  desc: string;
-  icon: string;
-}
-
-export const aLaCarte: ALaCarteService[] = [
-  { title: "Wedding Photography", desc: "Full-day coverage with our lead photographers and hand-edited galleries.", icon: "Camera" },
-  { title: "Wedding Films", desc: "Cinematic teasers, highlight films and documentaries in 4K.", icon: "Clapperboard" },
-  { title: "Drone Coverage", desc: "Certified aerial cinematography for venues, processions and landscapes.", icon: "Plane" },
-  { title: "Save The Date", desc: "Creative cinematic couple shoots across Kerala's finest locations.", icon: "CalendarHeart" },
-  { title: "Destination Weddings", desc: "Full-service destination coverage anywhere in India and abroad.", icon: "MapPin" },
-  { title: "Luxury Albums", desc: "Lay-flat fine-art albums, acrylic frames and premium prints.", icon: "BookOpen" },
-  { title: "Live Streaming", desc: "Private live broadcast of ceremonies for family across the world.", icon: "Radio" },
-  { title: "Pre Wedding", desc: "Romantic portraits and adventure sessions before the big day.", icon: "HeartHandshake" },
-  { title: "Post Wedding", desc: "Beach, hill station and travel shoots after the celebration.", icon: "Palmtree" },
-  { title: "Family Portraits", desc: "Timeless multi-generational portraits at home or outdoors.", icon: "Users" },
-  { title: "Corporate Events", desc: "Conferences, launches and celebrations photographed with editorial polish.", icon: "Briefcase" },
 ];
 
 export interface Expertise {

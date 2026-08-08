@@ -1,19 +1,11 @@
 import Link from "next/link";
-import {
-  ArrowRight,
-  Award,
-  Camera,
-  Clapperboard,
-  Landmark,
-  ShieldCheck,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Hero from "@/components/home/Hero";
 import FilmsPreview from "@/components/home/FilmsPreview";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import Reveal from "@/components/motion/Reveal";
 import Counter from "@/components/motion/Counter";
 import KPhoto from "@/components/ui/KPhoto";
-import Marquee from "@/components/ui/Marquee";
 import TestimonialCarousel from "@/components/TestimonialCarousel";
 import InstagramFeed from "@/components/InstagramFeed";
 import BookingCTA from "@/components/BookingCTA";
@@ -22,18 +14,6 @@ import { webPageSchema } from "@/lib/seo";
 import { u } from "@/lib/utils";
 import { weddings } from "@/data/weddings";
 import { cultureGalleries } from "@/data/portfolio";
-import { awards } from "@/data/team";
-
-const pressItems = [
-  "Wedding Film Awards India",
-  "WedSites",
-  "Kerala Wedding Expo",
-  "AlbumMasters International",
-  "Craft Guild of Photographers",
-  "South Indian Wedding Awards",
-  "WeddingNama",
-  "The Wedding Filmer",
-];
 
 export default function Home() {
   return (
@@ -109,49 +89,6 @@ export default function Home() {
             <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
         </Reveal>
-      </Section>
-
-      {/* Why choose us */}
-      <Section ariaLabel="Why choose Manayath Studios">
-        <SectionHeading
-          eyebrow="Why Couples Choose Us"
-          title="The art of being invisible"
-          sub="Great wedding photography is felt, not seen. Here's what 850+ Kerala couples trust us for."
-        />
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            {
-              icon: Camera,
-              title: "Candid Storytelling",
-              text: "We hide in plain sight — real laughter, real tears, real relatives caught mid-blessing.",
-            },
-            {
-              icon: Landmark,
-              title: "Cultural Expertise",
-              text: "Thalappoli to Minnu Kettu to Nikah — we know Kerala's rituals well enough to disappear into them.",
-            },
-            {
-              icon: Clapperboard,
-              title: "Cinematic Films",
-              text: "4K teasers, same-day edits and documentary films colour-graded for Kerala's light.",
-            },
-            {
-              icon: ShieldCheck,
-              title: "Trusted & Reliable",
-              text: "On-time delivery, dual-card backups and a 72-hour sneak peek — every single wedding.",
-            },
-          ].map((f, i) => (
-            <Reveal key={f.title} delay={i * 0.08}>
-              <div className="card-lift group h-full rounded-3xl border border-border/70 bg-card/50 p-7 backdrop-blur-sm">
-                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-gold/10 text-gold transition-colors duration-300 group-hover:bg-gold group-hover:text-[#241c10]">
-                  <f.icon size={20} />
-                </span>
-                <h3 className="mt-5 font-serif text-xl">{f.title}</h3>
-                <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">{f.text}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
       </Section>
 
       {/* Wedding stories */}
@@ -275,35 +212,6 @@ export default function Home() {
           sub="Follow our daily life between weddings — behind-the-scenes, sneak peeks and Kerala's prettiest corners."
         />
         <InstagramFeed />
-      </Section>
-
-      {/* Awards */}
-      <Section ariaLabel="Awards and recognition" className="bg-charcoal/[0.02]">
-        <SectionHeading
-          eyebrow="Awards & Recognition"
-          title="Honoured by the industry we love"
-        />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {awards.map((a, i) => (
-            <Reveal key={a.title} delay={i * 0.05}>
-              <div className="card-lift flex items-start gap-4 rounded-2xl border border-border/70 bg-card/50 p-6">
-                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-gold/10 text-gold">
-                  <Award size={18} />
-                </span>
-                <div>
-                  <p className="font-serif text-lg leading-snug">{a.title}</p>
-                  <p className="mt-1 text-xs text-muted-foreground">{a.org}</p>
-                  <p className="mt-2 inline-flex rounded-full bg-gold/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-gold">
-                    {a.year}
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-        <Reveal className="mt-14">
-          <Marquee items={pressItems} itemClassName="text-foreground/35" />
-        </Reveal>
       </Section>
 
       {/* Booking CTA */}

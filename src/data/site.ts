@@ -46,8 +46,6 @@ export const site = {
     { label: "Films", href: "/films" },
     { label: "Services", href: "/services" },
     { label: "About", href: "/about" },
-    { label: "Blog", href: "/blog" },
-    { label: "Client Portal", href: "/portal" },
     { label: "Contact", href: "/contact" },
   ],
 };

@@ -1,4 +1,3 @@
-import type { BlogPost } from "@/data/blog";
 import type { Gallery } from "@/data/portfolio";
 import { site } from "@/data/site";
 import { u } from "./utils";
@@ -73,36 +72,6 @@ export function webPageSchema(title: string, description: string, path: string) 
     description,
     url: `${url}${path}`,
     isPartOf: { "@id": `${url}/#organization` },
-  };
-}
-
-/** FAQPage schema */
-export function faqSchema(faqs: { q: string; a: string }[]) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((f) => ({
-      "@type": "Question",
-      name: f.q,
-      acceptedAnswer: { "@type": "Answer", text: f.a },
-    })),
-  };
-}
-
-/** Article schema for blog posts */
-export function articleSchema(post: BlogPost) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: post.title,
-    description: post.excerpt,
-    image: [u(post.cover, 1600)],
-    datePublished: post.date,
-    dateModified: post.date,
-    author: { "@type": "Person", name: post.author, jobTitle: "Lead Photographer" },
-    publisher: { "@id": `${url}/#organization` },
-    mainEntityOfPage: `${url}/blog/${post.slug}`,
-    keywords: post.keywords.join(", "),
   };
 }
 

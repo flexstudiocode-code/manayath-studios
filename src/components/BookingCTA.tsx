@@ -1,12 +1,9 @@
 import Link from "next/link";
 import { ArrowRight, CalendarHeart } from "lucide-react";
 import Reveal from "@/components/motion/Reveal";
-import Countdown from "@/components/Countdown";
-import { weddings } from "@/data/weddings";
 
-/** Shared booking CTA with countdown widget */
+/** Shared booking CTA */
 export default function BookingCTA() {
-  const target = weddings[1];
   return (
     <section className="relative overflow-hidden py-24 sm:py-32" aria-label="Book your wedding">
       <div
@@ -25,13 +22,6 @@ export default function BookingCTA() {
               Check availability, request a quotation or book a free consultation call.
               Most Kerala wedding dates book out 6–12 months ahead — secure yours today.
             </p>
-          </Reveal>
-
-          <Reveal delay={0.15} className="mt-10">
-            <Countdown
-              label={`${target.couple} · ${target.location}`}
-              target="2026-12-12T09:30:00+05:30"
-            />
           </Reveal>
 
           <Reveal delay={0.25} className="mt-10 flex flex-wrap items-center justify-center gap-4">
