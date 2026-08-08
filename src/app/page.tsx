@@ -8,7 +8,6 @@ import Counter from "@/components/motion/Counter";
 import KPhoto from "@/components/ui/KPhoto";
 import TestimonialCarousel from "@/components/TestimonialCarousel";
 import InstagramFeed from "@/components/InstagramFeed";
-import BookingCTA from "@/components/BookingCTA";
 import JsonLd, { OrganizationJsonLd } from "@/components/JsonLd";
 import { webPageSchema } from "@/lib/seo";
 import { u } from "@/lib/utils";
@@ -213,9 +212,6 @@ export default function Home() {
         />
         <InstagramFeed />
       </Section>
-
-      {/* Booking CTA */}
-      <BookingCTA />
     </>
   );
 }

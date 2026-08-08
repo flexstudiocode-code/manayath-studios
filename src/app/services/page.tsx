@@ -5,7 +5,6 @@ import PageHero from "@/components/PageHero";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import Reveal from "@/components/motion/Reveal";
 import KPhoto from "@/components/ui/KPhoto";
-import BookingCTA from "@/components/BookingCTA";
 import JsonLd, { OrganizationJsonLd } from "@/components/JsonLd";
 import { breadcrumbSchema, webPageSchema } from "@/lib/seo";
 import { u } from "@/lib/utils";
@@ -130,8 +129,6 @@ export default function ServicesPage() {
           ))}
         </div>
       </Section>
-
-      <BookingCTA />
     </>
   );
 }

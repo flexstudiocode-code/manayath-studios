@@ -4,7 +4,6 @@ import PageHero from "@/components/PageHero";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import Reveal from "@/components/motion/Reveal";
 import FilmsGrid, { FeaturedFilmPlayer } from "@/components/FilmsGrid";
-import BookingCTA from "@/components/BookingCTA";
 import JsonLd, { OrganizationJsonLd } from "@/components/JsonLd";
 import { breadcrumbSchema, webPageSchema } from "@/lib/seo";
 
@@ -85,27 +84,6 @@ export default function FilmsPage() {
         />
         <FilmsGrid />
       </Section>
-
-      {/* How we film */}
-      <Section ariaLabel="How we make wedding films">
-        <div className="mx-auto grid max-w-4xl gap-8 sm:grid-cols-3">
-          {[
-            { step: "01", title: "We listen", text: "Every film starts with your story — how you met, what you love, who will cry. We build the narrative around you." },
-            { step: "02", title: "We disappear", text: "Two cinematographers, long lenses, zero direction. Real rituals and real reactions are always better than staged ones." },
-            { step: "03", title: "We craft", text: "Sound design, colour grade, and a music score licensed to your film. Delivered in cinematic 4K within 6–8 weeks." },
-          ].map((s, i) => (
-            <Reveal key={s.step} delay={i * 0.1}>
-              <div className="h-full rounded-3xl border border-border/70 bg-card/50 p-7">
-                <p className="font-serif text-4xl text-gold/50">{s.step}</p>
-                <h3 className="mt-3 font-serif text-xl">{s.title}</h3>
-                <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">{s.text}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </Section>
-
-      <BookingCTA />
     </>
   );
 }

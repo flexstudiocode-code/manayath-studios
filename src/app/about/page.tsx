@@ -6,7 +6,6 @@ import { Section, SectionHeading } from "@/components/ui/Section";
 import Reveal from "@/components/motion/Reveal";
 import KPhoto from "@/components/ui/KPhoto";
 import Timeline from "@/components/Timeline";
-import BookingCTA from "@/components/BookingCTA";
 import JsonLd, { OrganizationJsonLd } from "@/components/JsonLd";
 import { breadcrumbSchema, webPageSchema } from "@/lib/seo";
 import { u } from "@/lib/utils";
@@ -282,7 +281,6 @@ export default function AboutPage() {
         </Reveal>
       </Section>
 
-      <BookingCTA />
       <p className="sr-only">{site.name} — based in {site.address.city}, {site.address.state}</p>
     </>
   );

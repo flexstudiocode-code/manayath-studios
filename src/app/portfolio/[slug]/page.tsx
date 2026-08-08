@@ -7,7 +7,6 @@ import { Section } from "@/components/ui/Section";
 import Reveal from "@/components/motion/Reveal";
 import KPhoto from "@/components/ui/KPhoto";
 import GalleryExperience from "@/components/GalleryExperience";
-import BookingCTA from "@/components/BookingCTA";
 import JsonLd, { OrganizationJsonLd } from "@/components/JsonLd";
 import { breadcrumbSchema, gallerySchema, webPageSchema } from "@/lib/seo";
 import { u } from "@/lib/utils";
@@ -113,8 +112,6 @@ export default async function GalleryPage({ params }: { params: Promise<{ slug: 
           </div>
         </Section>
       )}
-
-      <BookingCTA />
     </>
   );
 }
