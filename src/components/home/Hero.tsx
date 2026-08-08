@@ -22,7 +22,7 @@ export default function Hero() {
   });
 
   return (
-    <section className="relative flex h-[100svh] min-h-[640px] w-full flex-col overflow-hidden" aria-label="Introduction">
+    <section className="relative flex min-h-[100svh] w-full flex-col overflow-hidden" aria-label="Introduction">
       <KPhoto
         src={u(weddings[0].image, 2000)}
         alt="Bride and groom in warm golden light — cinematic Kerala wedding photography"
